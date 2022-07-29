@@ -1,0 +1,24 @@
+{
+  "name": "smmplanner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "smmplanner": "node scripts/smmplanner.js",
+    "instagram-links": "node scripts/instagram-links.js",
+    "instagram-users": "node scripts/instagram-users.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "puppeteer": "^15.5.0",
+    "stream": "0.0.2",
+    "util": "^0.12.4",
+    "uuid": "^8.3.2"
+  }
+}

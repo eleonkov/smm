@@ -1,0 +1,12 @@
+const ACCOUNTS = {
+  NISSAN_350ZED: 1,
+  SILVIATASTE: 2,
+  SKYLINEFACTORY: 3,
+  SUPRAFACTORY: 4,
+  JDMBOOM: 5,
+  GTRTV: 6,
+};
+
+module.exports = {
+  ACCOUNTS,
+};
