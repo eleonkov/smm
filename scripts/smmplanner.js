@@ -32,17 +32,15 @@ if (!ACCOUNTS[process.env.SMM_ACCOUNT])
     .frames()
     .find((f) => f.url().startsWith("https://smmplanner.io/iframe/app/"));
 
-  await frame.evaluate(() => {
+  await frame.evaluate((index) => {
     document.querySelector(
-      `.viewport__content-section select > option:nth-child(${
-        ACCOUNTS[process.env.SMM_ACCOUNT]
-      })`
+      `.viewport__content-section select > option:nth-child(${index})`
     ).selected = true;
     element = document.querySelector(".viewport__content-section select");
     var event = new Event("change", { bubbles: true });
     event.simulated = true;
     element.dispatchEvent(event);
-  });
+  }, ACCOUNTS[process.env.SMM_ACCOUNT]);
 
   await frame.waitForTimeout(3000);
 
