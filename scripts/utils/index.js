@@ -7,7 +7,7 @@ const moment = require("moment");
 
 const instagramLogin = async (page, login, password) => {
   await page.goto("https://www.instagram.com/");
-  await page.click("button.aOOlW.HoLwm");
+  // await page.click("button.aOOlW.HoLwm");
   await page.waitForTimeout(3000);
 
   await page.type('[name="username"]', login);
@@ -39,7 +39,7 @@ const smmplannerLogin = async (page, login, password) => {
 
 const getEmbedSharedData = async (page, shortcode) => {
   await page.goto(`https://www.instagram.com/p/${shortcode}/embed/captioned/`);
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(1000);
 
   const sharedData = await page.evaluate(async () => {
     if (window.__additionalData.extra.data) {
@@ -98,17 +98,14 @@ const getEmbedSharedData = async (page, shortcode) => {
   sharedData.taken_at_timestamp =
     sharedData.taken_at_timestamp || moment().subtract(60, "seconds").unix();
 
-  console.log(
-    `${shortcode} - ${JSON.stringify({
-      likes: sharedData?.edge_liked_by?.count,
-    })}`
-  );
+  console.log(shortcode, { likes: sharedData?.edge_liked_by?.count });
 
   return {
     resources,
     typename: sharedData.__typename,
     message: sharedData?.edge_media_to_caption?.edges?.[0]?.node?.text,
     likes: sharedData?.edge_liked_by?.count,
+    comments: sharedData?.edge_media_to_comment?.count || 0,
     timestamp:
       sharedData.taken_at_timestamp || moment().subtract(60, "seconds").unix(),
     shortcode,
@@ -127,11 +124,12 @@ const getPostsByUserName = async (page, username) => {
     )
   );
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     try {
       const sharedData = await getEmbedSharedData(page, shortCodes[i]);
       result.push(sharedData);
     } catch (error) {
+      console.log("error", shortCodes[i]);
       continue;
     }
   }
@@ -162,7 +160,9 @@ const downloadFile = async (fileUrl, outputLocationPath) => {
 
 const getDescription = ({ message, source: { via, owner, photo }, tags }) => {
   const getMessage = () =>
-    message ? `${message} Follow @JDMBoom For More 🎌\n\n` : "";
+    message
+      ? `${message} Follow @${process.env.SMM_ACCOUNT} For More 🎌\n\n`
+      : "";
 
   const getSource = () => {
     let source = "";

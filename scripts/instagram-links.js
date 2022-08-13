@@ -19,14 +19,11 @@ if (!shortCodes.length) throw new Error("No links to parse!");
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  // await instagramLogin(page, process.env.IG_LOGIN, process.env.IG_PASSWORD);
-
   let sharedData = [];
 
   for (const shortCode of shortCodes) {
     try {
       const data = await getEmbedSharedData(page, shortCode);
-      await page.waitForTimeout(2345);
       sharedData.push(data);
     } catch (error) {
       console.log(`ERROR: ${shortCode} has been skipped`);

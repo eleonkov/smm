@@ -5,6 +5,7 @@ const ACCOUNTS = {
   SUPRAFACTORY: 4,
   JDMBOOM: 5,
   GTRTV: 6,
+  JDMCHALLENGE: 7,
 };
 
 module.exports = {
