@@ -7,6 +7,7 @@ export const Iframe = ({ shortcode }) => (
     height={400}
     frameborder="0"
     scrolling="no"
+    loading="lazy"
     allowtransparency="true"
   ></iframe>
 );

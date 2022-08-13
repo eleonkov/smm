@@ -29,7 +29,7 @@ export const Form = ({ preloadedData, shortcode, handleAdd, handleDelete }) => {
 
   return (
     <div>
-      Likes: {preloadedData.likes}
+      Likes: {preloadedData?.likes} | Comments: {preloadedData?.comments}
       <Input.TextArea
         rows={10}
         value={preloadedData.message.replaceAll("\\n", "\n")}
